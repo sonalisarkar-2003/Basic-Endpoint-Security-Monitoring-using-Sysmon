@@ -102,6 +102,40 @@ Logs newly created processes with command line, hashes, parent process
 
 ***PoC 2. Process Creation Log***
 
+**Event ID 3 - Network Connection**
+
+Records outbound network connections initiated by processes. 
+
+<img width="958" height="876" alt="image" src="https://github.com/user-attachments/assets/52d5569f-79ae-49cd-a93e-05b545569933" />
+
+***PoC 3. Network Connection Log***
+
+**Event ID 7 - Image Loaded (DLL)**
+
+Detect DLL hijacking and malicious DLLs
+
+<img width="916" height="334" alt="image" src="https://github.com/user-attachments/assets/4c5c8770-d7ce-483e-b172-823c3d9a6bdb" />
+
+***PoC 4. Event 7 - DLL Side‑Loading***
+
+**Event ID 8 - CreateRemoteThread**
+
+Indicates that a process created a thread in another process
+
+<img width="956" height="617" alt="image" src="https://github.com/user-attachments/assets/97332229-a33a-4794-85bc-4bba9f9b1ed4" />
+
+***PoC 5. Event 8 - Remote Thread Injection***
+
+
+
+
+
+
+
+
+
+
+
 
 
 
