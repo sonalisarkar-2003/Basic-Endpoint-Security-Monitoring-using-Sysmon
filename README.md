@@ -1,1 +1,237 @@
-# Basic-Endpoint-Security-Monitoring-using-Sysmon
+# Basic Endpoint Security Monitoring using Sysmon
+
+## AGENDA
+<img width="1794" height="613" alt="image" src="https://github.com/user-attachments/assets/d5dd4123-f7a9-488a-b247-01cdb802c8d9" />
+
+## ABSTRACT
+<img width="1676" height="811" alt="image" src="https://github.com/user-attachments/assets/de4306c2-92cb-4d3d-aad5-e7d0bc4425a7" />
+
+## MICROSOFT SYSMON: YOUR ENDPOINT'S CCTV
+<img width="605" height="250" alt="image" src="https://github.com/user-attachments/assets/d34eef2e-ee24-4df1-8f6a-9421979799de" />
+Microsoft Sysmon (System Monitor) is a free Sysinternals tool developed by Microsoft that extends Windows event logging by recording detailed system activities.
+It helps security teams detect threats, investigate incidents and improve endpoint visibility.
+
+**Version**
+
+~First released in 2014 
+
+~Latest versions continue to receive updates (v15.21)
+
+**Usage**
+
+~Monitors Windows endpoint activities in real time.
+
+**Popularity**
+
+~Free and lightweight
+
+## CAPABILITIES
+<img width="661" height="700" alt="image" src="https://github.com/user-attachments/assets/1ba2b63e-62c7-4434-8735-53d76231748a" />
+
+## INSTALLATION AND CONFIGURATION
+
+**Step 1: Download Sysmon**
+
+Download the latest Sysmon ZIP package from the official Microsoft Sysinternals page. 
+https://learn.microsoft.com/en-in/sysinternals/downloads/sysmon
+
+Extract the ZIP file to a folder.
+
+<img width="947" height="474" alt="image" src="https://github.com/user-attachments/assets/8277b367-bfa0-4f2b-9201-d50d43b67b8f" />
+
+***Fig1. Sysmon v15.21 Download Page***
+
+
+**Step 2: Download a Configuration File**
+
+Download a Sysmon configuration file (.xml). 
+
+A commonly recommended one is the SwiftOnSecurity configuration.
+https://github.com/SwiftOnSecurity/sysmon-config
+
+<img width="947" height="464" alt="image" src="https://github.com/user-attachments/assets/b602b9e3-83cc-460a-b1fc-5c34257957f1" />
+
+***Fig2. Sysmon Config GitHub Repo***
+
+**Step 3: Open Command Prompt or PowerShell and Run as Administrator**
+
+**Step 4: Navigate to the Sysmon Folder**
+
+*cd C:\Program Files\Sysmon*
+
+<img width="966" height="444" alt="image" src="https://github.com/user-attachments/assets/7b87d82d-2158-47e2-a62a-0d21ae7437bc" />
+
+***Fig3. Sysmon Program Files Directory***
+
+**Step 5: Install Sysmon**
+
+Install Sysmon using the configuration file using command:
+
+*.\Sysmon64.exe  -i .\sysmonconfig-export.xml*
+
+<img width="965" height="463" alt="image" src="https://github.com/user-attachments/assets/b10f3a39-dd9c-43cb-9749-65d5e6b7d242" />
+
+***Fig4. Sysmon Installation Success***
+
+**Step 6: Verify in Event Viewer**
+
+Events are stored in :
+
+*Applications and Services Logs/Microsoft/Windows/Sysmon
+/Operational*
+
+<img width="967" height="490" alt="image" src="https://github.com/user-attachments/assets/4cfcce6c-af79-4bf5-bb8c-5c861f7e0c5d" />
+
+***Fig5. Verify Installation of Sysmon in EventViewer***
+
+<img width="946" height="490" alt="image" src="https://github.com/user-attachments/assets/1187493e-9c1e-4346-9aa4-13c9ba542bd6" />
+
+***Fig6. Sysmon Logs***
+
+## ENDPOINT TELEMETRY ARTIFACTS
+
+**Event ID 1 - Process Creation**
+
+Logs newly created processes with command line, hashes, parent process
+
+<img width="926" height="204" alt="image" src="https://github.com/user-attachments/assets/122703a6-c2f5-4682-a90d-1c64658ba813" />
+
+***PoC 1. Creating a Process***
+
+<img width="1227" height="743" alt="image" src="https://github.com/user-attachments/assets/94e08a98-834b-4c1e-99d0-824dfa1037f8" />
+
+***PoC 2. Process Creation Log***
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Lab Setup
+
+Network Configuration: Host-Only Adapter
+
+## Tools Used
+•	Wireshark
+
+•	DVWA web application
+
+## Findings
+Finding: Credentials Transmitted over HTTP
+
+Severity: Critical
+
+Description: The DVWA application uses HTTP transmitting sensitive data (username and password) in plaintext. This makes it vulnerable to interception by attackers monitoring network traffic.
+
+### Evidence
+
+<img width="981" height="523" alt="image" src="https://github.com/user-attachments/assets/17f80d86-2a05-49fc-a29d-f0bdcc7ce919" />
+
+<img width="982" height="664" alt="image" src="https://github.com/user-attachments/assets/d762ee79-40ae-409a-8b64-c6bb27867cf3" />
+
+<img width="896" height="567" alt="image" src="https://github.com/user-attachments/assets/98d548b3-1996-4142-8bf0-1cf455367914" />
+
+<img width="767" height="813" alt="image" src="https://github.com/user-attachments/assets/b00e135b-4c73-4073-9500-b1832a309c82" />
+
+### Exploitation Steps
+
+•	Access metasploitable 2 interface in Firefox at http://192.168.56.103
+
+•	Login into DVWA application with credentials:
+Username: admin
+Password: password
+
+•	Capture traffic using Wireshark
+
+•	Filter the HTTP POST requests from the traffic
+
+•	Extract the credentials from plaintext HTTP request
+
+### Result
+
+•	Successful interception of credentials.
+
+•	Unauthorized login confirmed.
+
+•	Login credentials were visible in plain text.
+
+### Impact
+
+•	Vulnerable to packet sniffing.
+
+•	Enables credential theft.
+
+•	Risk of unauthorized access.
+
+•	Facilitates Man-in-the-Middle attacks.
+
+## Risk Rating
+
+  | Metric     | Value       |
+  | ---------- | ----------- |
+  | Likelihood | High        |
+  | Impact     | High        |
+  | Risk Level | Critical    |
+   --------------------------
+
+## Remediation
+
+•	Replace HTTP with HTTPS.
+
+•	Enable SSL/TLS encryption.
+
+•	Use secure authentication and session management.
+
+•	Use strong, non-default credentials.
+
+•	Regularly monitor and patch web applications.
+
+## Retesting
+
+•	Verify automatic HTTP to HTTPS redirection.
+
+•	Capture traffic again using Wireshark.
+
+•	Ensure credentials are encrypted.
+
+## Conclusion
+
+The DVWA application running on Metasploitable 2 is critically vulnerable due to plaintext HTTP communication. Immediate remediation is required to secure authentication and prevent credential theft.
+
+## Appendix
+
+Commands used:
+
+Ping 192.168.56.103
+
+Firefox: http://192.168.56.103
+
+DVWA login page: http://192.168.56.103/dvwa/login.php
+
+
