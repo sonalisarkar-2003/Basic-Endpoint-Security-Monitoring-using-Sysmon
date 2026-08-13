@@ -1,4 +1,4 @@
-# Basic Endpoint Security Monitoring using Sysmon
+# BASIC ENDPOINT SECURITY MONITORING USING SYSMON
 
 ## AGENDA
 <img width="1794" height="613" alt="image" src="https://github.com/user-attachments/assets/d5dd4123-f7a9-488a-b247-01cdb802c8d9" />
